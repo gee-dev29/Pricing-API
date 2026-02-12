@@ -20,11 +20,7 @@ async function bootstrap() {
         : corsOrigins.split(',').map((origin: string) => origin.trim()),
     credentials: corsCredentials,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'X-Requested-With',
-    ],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     exposedHeaders: ['Content-Range', 'X-Content-Range'],
     maxAge: 86400, // 24 hours
   };
@@ -48,4 +44,6 @@ async function bootstrap() {
   await app.listen(port);
   console.log(`Application running on port http://localhost:${port}`);
 }
-bootstrap();
+bootstrap().catch((err) => {
+  console.error('Error starting application', err);
+});
